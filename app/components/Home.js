@@ -1,6 +1,5 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var GetCityContainer = require('../containers/GetCityContainer');
+import React, { PropTypes } from'react';
+import GetCityContainer from'../containers/GetCityContainer';
 
 var styles = {
   container: {
@@ -20,7 +19,7 @@ var styles = {
   },
 }
 
-function Home (props) {
+export default function Home (props) {
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>Enter a City and State</h1>
@@ -28,5 +27,3 @@ function Home (props) {
     </div>
   )
 }
-
-module.exports = Home;

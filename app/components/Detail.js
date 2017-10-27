@@ -1,7 +1,6 @@
-var React = require('react');
-var utils = require('../helpers/utils');
-var DayItem = require('./DayItem');
-var convertTemp = utils.convertTemp;
+import React from 'react';
+import { convertTemp } from '../helpers/utils';
+import DayItem from './DayItem';
 
 var styles = {
   descriptionContainer: {

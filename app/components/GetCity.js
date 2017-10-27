@@ -1,5 +1,4 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
+import React, { PropTypes } from 'react';
 
 function Button (props) {
   return (
@@ -29,12 +28,11 @@ function getStyles (props) {
     flexDirection: props.direction || 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: 300,
-    alignSelf: 'right'
+    maxWidth: 300
   }
 }
 
-function GetCity (props) {
+export default function GetCity (props) {
   return (
     <div style={getStyles(props)}>
       <InputField
@@ -54,5 +52,3 @@ GetCity.propTypes = {
   onUpdateCity: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired
 }
-
-module.exports = GetCity;

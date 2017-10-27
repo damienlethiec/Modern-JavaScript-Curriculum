@@ -1,6 +1,6 @@
-var React = require('react');
-var Forecast = require('../components/Forecast');
-var getForcast = require('../helpers/api').getForcast;
+import React from 'react';
+import Forecast from '../components/Forecast';
+import { getForecast } from './../helpers/api.js';
 
 var ForecastContainer = React.createClass({
   contextTypes: {
@@ -19,7 +19,7 @@ var ForecastContainer = React.createClass({
     this.makeRequest(nextProps.routeParams.city)
   },
   makeRequest: function (city) {
-    getForcast(city)
+    getForecast(city)
       .then(function (forecastData) {
         this.setState({
           isLoading: false,
@@ -46,4 +46,4 @@ var ForecastContainer = React.createClass({
   }
 });
 
-module.exports = ForecastContainer;
+export default ForecastContainer;

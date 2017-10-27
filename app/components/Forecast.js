@@ -1,8 +1,6 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var utils = require('../helpers/utils');
-var getDate = utils.getDate;
-var DayItem = require('./DayItem');
+import React, { PropTypes } from 'react';
+import { getDate } from '../helpers/utils';
+import DayItem from './DayItem';
 
 var styles = {
   container: {
@@ -43,7 +41,7 @@ function ForecastUI (props) {
   )
 }
 
-function Forecast (props) {
+export default function Forecast (props) {
   return (
     <div>
       {
@@ -64,5 +62,3 @@ Forecast.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired
 }
-
-module.exports = Forecast;
