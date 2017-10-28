@@ -1,5 +1,5 @@
 const _baseURL = 'http://api.openweathermap.org/data/2.5/';
-const _APIKEY = 'b714ec74bbab5650795063cb0fdf5fbe';
+const _APIKEY = "889f5f629234ffbc8c8fe3377f541fcb";
 
 function prepRouteParams (queryStringData) {
   return Object.keys(queryStringData)
@@ -30,7 +30,7 @@ export async function getCurrentWeather(city) {
 
 export async function getForecast(city) {
   const queryStringData = getQueryStringData(city);
-  const url = prepUrl('forecast/daily', queryStringData);
+  const url = prepUrl('forecast/', queryStringData);
 
   const response = await fetch(url);
   return response.json();

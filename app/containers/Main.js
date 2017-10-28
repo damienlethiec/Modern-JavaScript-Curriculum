@@ -1,11 +1,7 @@
 import React from 'react';
 import GetCityContainer from './GetCityContainer';
 
-var styles = {
-  container: {
-    width: '100%',
-    height: '92%'
-  },
+const styles = {
   header :{
     display: 'flex',
     justifyContent: 'space-between',
@@ -16,18 +12,11 @@ var styles = {
   }
 }
 
-var Main = React.createClass({
-  render: function () {
-    return (
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <h2 style={{margin: 0}}>Clever Title</h2>
-          <GetCityContainer direction='row' />
-        </div>
-        {this.props.children}
-      </div>
-    )
-  }
-})
-
-export default Main;
+export default function Main (props) {
+  return (
+    <div style={styles.header}>
+      <h2 style={{margin: 0}}>Clever Title</h2>
+      <GetCityContainer direction='row' />
+    </div>
+  )
+}

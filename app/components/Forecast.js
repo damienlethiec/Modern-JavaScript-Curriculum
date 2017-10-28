@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
+import React, {Component}from 'react';
+import PropTypes from 'prop-types';
 import { getDate } from '../helpers/utils';
 import DayItem from './DayItem';
 
-var styles = {
+const styles = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -27,38 +28,41 @@ var styles = {
   }
 }
 
-function ForecastUI (props) {
+function ForecastUI ({city, forecast}) {
+  const {header, subheader, container} = styles
   return (
     <div style={{textAlign: 'center'}}>
-      <h1 style={styles.header}>{props.city}</h1>
-      <p style={styles.subheader}>Select a day</p>
-      <div style={styles.container}>
-        {props.forecast.list.map(function (listItem) {
-          return <DayItem key={listItem.dt} day={listItem} handleClick={props.handleClick.bind(null, listItem)} />
-        })}
+      <h1 style={header}>{city}</h1>
+      <p style={subheader}>Select a day</p>
+      <div style={container}>
+        {forecast.list.map((listItem) => <DayItem key={listItem.dt} day={listItem} city={city} />)}
       </div>
     </div>
   )
 }
 
-export default function Forecast (props) {
-  return (
-    <div>
-      {
-        props.isLoading === true
+class Forecast extends Component {
+  static propTypes = {
+    city: PropTypes.string.isRequired,
+    forecastData: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired
+  }
+
+  render() {
+    const {isLoading, city, forecastData, handleClick} = this.props
+    return (
+      <div>
+        {
+          isLoading
           ? <h1 style={styles.header}> Loading </h1>
           : <ForecastUI
-              city={props.city}
-              forecast={props.forecastData}
-              handleClick={props.handleClick} />
-      }
-    </div>
-  )
+              city={city}
+              forecast={forecastData}
+              handleClick={handleClick} />
+        }
+      </div>
+    )
+  }
 }
 
-Forecast.propTypes = {
-  city: PropTypes.string.isRequired,
-  forecastData: PropTypes.object.isRequired,
-  handleClick: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired
-}
+export default Forecast;

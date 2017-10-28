@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getDate } from '../helpers/utils';
 
 var styles = {
@@ -19,23 +21,27 @@ var styles = {
   }
 }
 
-function DayItem (props) {
-  var date = getDate(props.day.dt);
-  var icon = props.day.weather[0].icon;
-  return (
-    <div style={styles.dayContainer} onClick={props.handleClick}>
-      <img style={styles.weather} src={'./app/images/weather-icons/' + icon + '.svg'} alt='Weather' />
-      <h2 style={styles.subheader}>{date}</h2>
-    </div>
-  )
+class DayItem extends Component {
+  static propTypes = {
+    day: PropTypes.shape({
+      dt: PropTypes.number.isRequired,
+      weather: PropTypes.array.isRequired,
+    }).isRequired
+  }
+  render() {
+    const {day, city} = this.props;
+    const {dayContainer, weather, subheader} = styles
+    const date = getDate(day.dt);
+    const icon = day.weather[0].icon;
+    return(
+      <Link to={{ pathname: `/details/${city}`, state: { weather: day }}} style={{textDecoration: "none"}}>
+        <div style={dayContainer} >
+          <span style={weather} dangerouslySetInnerHTML={{ __html: require(`./../images/weather-icons/${icon}.svg`) }} />
+          <h2 style={subheader}>{date}</h2>
+        </div>
+      </Link>
+    )
+  }
 }
 
-DayItem.propTypes = {
-  day: PropTypes.shape({
-    dt: PropTypes.number.isRequired,
-    weather: PropTypes.array.isRequired,
-  }).isRequired,
-  handleClick: PropTypes.func,
-}
-
-module.exports = DayItem;
+export default DayItem

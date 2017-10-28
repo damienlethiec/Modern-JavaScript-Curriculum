@@ -1,14 +1,8 @@
 import React from 'react';
 import Detail from '../components/Detail';
+import { startCase } from "lodash";
 
-var DetailContainer = React.createClass({
-  render: function() {
-    return (
-      <Detail
-        weather={this.props.location.state.weather}
-        city={this.props.routeParams.city} />
-    );
-  }
-});
-
-export default DetailContainer;
+export default function DetailContainer({ location }) {
+  const city = startCase(location.pathname.split("/")[2])
+  return <Detail weather={location.state.weather} city={city} />
+};

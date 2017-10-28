@@ -1,49 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Forecast from '../components/Forecast';
+import queryString from "query-string";
 import { getForecast } from './../helpers/api.js';
+import { startCase } from "lodash";
 
-var ForecastContainer = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-  getInitialState: function () {
-    return {
-      isLoading: true,
-      forecastData: {}
-    }
-  },
-  componentDidMount: function () {
-    this.makeRequest(this.props.routeParams.city)
-  },
-  componentWillReceiveProps: function (nextProps) {
-    this.makeRequest(nextProps.routeParams.city)
-  },
-  makeRequest: function (city) {
-    getForecast(city)
-      .then(function (forecastData) {
-        this.setState({
-          isLoading: false,
-          forecastData: forecastData
-        });
-      }.bind(this));
-  },
-  handleClick: function (weather) {
-    this.context.router.push({
-      pathname: '/detail/' + this.props.routeParams.city,
-      state: {
-        weather: weather
-      }
-    })
-  },
-  render: function () {
+class ForecastContainer extends Component {
+  state = {
+    isLoading: true,
+    forecastData: {},
+    city: ""
+  }
+  componentDidMount() {
+    const city = startCase(this.props.location.pathname.split("/")[2]);
+    this.makeRequest(city)
+  }
+  componentWillReceiveProps(nextProps) {
+    const city = startCase(nextProps.location.pathname.split("/")[2]);
+    this.makeRequest(city)
+  }
+  makeRequest = async (city) => {
+    const response = await getForecast(city)
+    this.setState({
+      isLoading: false,
+      forecastData: response,
+      city
+    });
+  }
+  render() {
     return (
       <Forecast
-        city={this.props.routeParams.city}
+        city={this.state.city}
         isLoading={this.state.isLoading}
-        handleClick={this.handleClick}
         forecastData={this.state.forecastData} />
     )
   }
-});
+};
 
 export default ForecastContainer;

@@ -2,29 +2,25 @@ import React from 'react';
 import { convertTemp } from '../helpers/utils';
 import DayItem from './DayItem';
 
-var styles = {
-  descriptionContainer: {
-    fontSize: 34,
-    fontWeight: 100,
-    maxWidth: 400,
-    margin: '0 auto',
-    textAlign: 'center',
-  }
+const styles = {
+  fontSize: 34,
+  fontWeight: 100,
+  maxWidth: 400,
+  margin: '0 auto',
+  textAlign: 'center',
 }
 
-function Detail (props) {
+export default function Detail ({weather, city}) {
   return (
-    <div style={styles.container}>
-      <DayItem day={props.weather} />
-      <div style={styles.descriptionContainer}>
-        <p>{props.city}</p>
-        <p>{props.weather.weather[0].description}</p>
-        <p>min temp: {convertTemp(props.weather.temp.min)} degrees</p>
-        <p>max temp: {convertTemp(props.weather.temp.max)} degrees</p>
-        <p>humidity: {props.weather.humidity}</p>
+    <div>
+      <DayItem day={weather} />
+      <div style={styles}>
+        <p>{city}</p>
+        <p>{weather.weather[0].description}</p>
+        <p>min temp: {convertTemp(weather.main.temp.min)} degrees</p>
+        <p>max temp: {convertTemp(weather.main.temp.max)} degrees</p>
+        <p>humidity: {weather.humidity}</p>
       </div>
     </div>
   )
 }
-
-module.exports = Detail;
